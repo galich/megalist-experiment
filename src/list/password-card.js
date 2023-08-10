@@ -36,8 +36,26 @@ export default class PasswordCard extends LitElement {
                 height: 22px;
             }
 
+            .input-display {
+                width: 100%;
+                padding: 4px;
+                padding-inline-start: 8px;
+                border-radius: 8px;
+            }
+
             .input-display > .label {
                 color: #6b6b6b;
+            }
+
+            .input-display > input {
+                border: none;
+                width: 100%;
+                padding-block: 4px;
+                margin-inline-end: 8px;
+            }
+
+            .input-display:hover {
+                background-color: rgba(147, 144, 144, 0.20);
             }
         `;
     }
@@ -58,9 +76,15 @@ export default class PasswordCard extends LitElement {
                 </div>
                 <div class="input-display">
                     <div class="label">${label}</div>
-                    <div class="value">${value}</div>
+                    ${this.renderInput(value)}
                 </div>
             </div>
+        `;
+    }
+
+    renderInput(value) {
+        return html`
+            <input type="text" value=${value} />
         `;
     }
 
