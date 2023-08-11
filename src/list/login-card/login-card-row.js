@@ -51,8 +51,8 @@ export default class LoginCardRow extends LitElement {
         </div>
         <slot name="row-content"></slot>
         <div class="arrows">
-          <span>↑</span>
-          <span>↓</span>
+          <span>▲</span>
+          <span>▼</span>
         </div>
       </div>
     `;
