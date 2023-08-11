@@ -47,34 +47,70 @@ export default class LoginCard extends LitElement {
     `;
   }
 
-  getIconSrc() {
-    return ICONS[this.login.origin] || "../../assets/default.png";
+  getIconSrc(name) {
+    if (name.includes("allowed on websites")) {
+      return ICONS[this.login["allowed on websites"]] || "../../assets/default.png";
+    }
   }
 
   renderInput(label, value, type = "text") {
+    const values = value.split("\n").map(v => {
+      if (label.includes("allowed on websites")) {
+        return html`<div><a href=${v}>${v}</a></div>`;
+      }
+      return html`<input name="${label}" type="${type}" value=${v} />`;
+    });
+
     return html`
       <div slot="row-content" class="input-display">
         <div>
           <label for="${label}">${label}</label>
         </div>
-        <input name="${label}" type="${type}" value=${value} />
+        ${values}
       </div>
     `;
   }
+
+  // render() {
+  //   return html`
+  //     <list-card>
+  //       <div slot="content">
+  //         <login-card-row .icon=${this.getIconSrc()}>
+  //           ${this.renderInput("Website", this.login.allowed on websites)}
+  //         </login-card-row>
+  //         <login-card-row>
+  //           ${this.renderInput("Username", this.login.username)}
+  //         </login-card-row>
+  //         <login-card-row>
+  //           ${this.renderInput("Password", this.login.password, "password")}
+  //         </login-card-row>
+  //       </div>
+  //     </list-card>
+  //   `;
+  // }
 
   render() {
     return html`
       <list-card>
         <div slot="content">
-          <login-card-row .icon=${this.getIconSrc()}>
-            ${this.renderInput("Website", this.login.origin)}
-          </login-card-row>
-          <login-card-row>
-            ${this.renderInput("Username", this.login.username)}
-          </login-card-row>
-          <login-card-row>
-            ${this.renderInput("Password", this.login.password, "password")}
-          </login-card-row>
+          ${Object.entries(this.login).map(([name, value]) => {
+            let type = "text";
+            if (name.includes("password")) {
+              type = "password";
+            }
+
+            // Format the credit card number value
+            if (name.includes("card-number")) {
+              const result = value.match(/.{1,4}/g) || [];
+              value = result.join("-");
+            }
+
+            return html`
+              <login-card-row .icon=${this.getIconSrc(name)}>
+                ${this.renderInput(name, value, type)}
+              </login-card-row>
+            `;
+          })}
         </div>
       </list-card>
     `;

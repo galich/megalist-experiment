@@ -8,6 +8,7 @@ export default class ListCard extends LitElement {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         padding: 8px;
         border-radius: 8px;
+        border: 1px solid #69696969;
       }
 
       .card:hover {
