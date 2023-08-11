@@ -51,7 +51,8 @@ export class Megalist extends LitElement {
         password: "123456789",
       },
       {
-        "allowed on websites": "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
+        "allowed on websites":
+          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
         "credit-card-number": "378282246310005",
         "credit-card-type": "visa",
         "credit-card-expiry": "05/29",
@@ -59,7 +60,8 @@ export class Megalist extends LitElement {
         password: "123456789",
       },
       {
-        "allowed on websites": "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
+        "allowed on websites":
+          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
         "credit-card-number": "5555555555554444",
         "credit-card-type": "mastercard",
         "credit-card-expiry": "05/29",
@@ -67,7 +69,8 @@ export class Megalist extends LitElement {
         password: "123456789",
       },
       {
-        "allowed on websites": "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
+        "allowed on websites":
+          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
         "credit-card-number": "5610591081018250",
         "credit-card-type": "american-express",
         "credit-card-expiry": "05/29",
@@ -75,14 +78,17 @@ export class Megalist extends LitElement {
         password: "123456789",
       },
       {
-        "allowed on websites": "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
-        "address": "366 Adelaide St W #500",
-        "city": "Toronto",
-        "province": "ON",
+        "allowed on websites":
+          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
+        "never use on websites": "https://facebook.com",
+        address: "366 Adelaide St W #500",
+        city: "Toronto",
+        province: "ON",
         "postal code": "M5V 1R9",
         username: "joedoe",
         password: "123456789",
-      }
+        email: "joe@doe.com",
+      },
     ];
 
     return html`

@@ -6,6 +6,7 @@ import "../list-card";
 const ICONS = {
   "https://google.com": "../../assets/google.png",
   "https://amazon.com": "../../assets/amazon.png",
+  "https://facebook.com": "../../assets/facebook.png",
 };
 
 export default class LoginCard extends LitElement {
@@ -48,15 +49,27 @@ export default class LoginCard extends LitElement {
   }
 
   getIconSrc(name) {
-    if (name.includes("allowed on websites")) {
-      return ICONS[this.login["allowed on websites"]] || "../../assets/default.png";
+    if (name.includes("websites")) {
+      return ICONS[this.login[name]] || "../../assets/default.png";
     }
   }
 
   renderInput(label, value, type = "text") {
-    const values = value.split("\n").map(v => {
-      if (label.includes("allowed on websites")) {
+    const values = value.split("\n").map((v) => {
+      if (label.includes("websites")) {
         return html`<div><a href=${v}>${v}</a></div>`;
+      }
+
+      if (label.includes("address")) {
+        return html`<div>
+          <a href=${`https://www.google.ca/maps/place/${v}`}>${v}</a>
+        </div>`;
+      }
+
+      if (value.includes("@")) {
+        return html`<div>
+          <a href=${`mailto:${v}`}>${v}</a>
+        </div>`;
       }
       return html`<input name="${label}" type="${type}" value=${v} />`;
     });

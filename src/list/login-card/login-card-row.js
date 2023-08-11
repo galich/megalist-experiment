@@ -15,6 +15,9 @@ export default class LoginCardRow extends LitElement {
         flex-direction: row;
         margin: 8px;
       }
+      .row:hover .arrows {
+        display: block;
+      }
 
       .row > .image-margin {
         display: grid;
@@ -25,6 +28,13 @@ export default class LoginCardRow extends LitElement {
       .image-margin > img {
         width: 22px;
         height: 22px;
+      }
+      .arrows {
+        display: none;
+        padding: -4px 0 -4px 0;
+      }
+      .arrows > span {
+        cursor: pointer;
       }
     `;
   }
@@ -40,6 +50,10 @@ export default class LoginCardRow extends LitElement {
           )}
         </div>
         <slot name="row-content"></slot>
+        <div class="arrows">
+          <span>↑</span>
+          <span>↓</span>
+        </div>
       </div>
     `;
   }
