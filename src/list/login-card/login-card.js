@@ -114,7 +114,19 @@ ${v}</textarea
 
       <div slot="edit-row-content" class="input-display">
         <div>
-          <input placeholder="Enter label" value=${label} />
+          <input list="label-suggestions" placeholder="Enter label" value=${label} />
+          <datalist id="label-suggestions">
+            <option>username</option>
+            <option>password</option>
+            <option>credit-card-number</option>
+            <option>credit-card-type</option>
+            <option>credit-card-expiry</option>
+            <option>allowed websites</option>
+            <option>never show on websites</option>
+            <option>Serg's favourite dishwasher model#</option>
+            <option>VIN# for car</option>
+            <option>address</option>
+          </datalist>
         </div>
         ${valuesToEdit}
       </div>
