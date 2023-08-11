@@ -5,6 +5,7 @@ export default class LoginCardRow extends LitElement {
   static get properties() {
     return {
       icon: { type: String },
+      editMode: { type: Boolean },
     };
   }
 
@@ -49,10 +50,31 @@ export default class LoginCardRow extends LitElement {
             () => null
           )}
         </div>
-        <slot name="row-content"></slot>
+        ${this.editMode
+          ? html`
+              <slot name="edit-row-content"></slot>
+              
+            `
+          : html`
+              <slot name="row-content"></slot>
+              
+            `}
         <div class="arrows">
-          <span>▲</span>
-          <span>▼</span>
+          <span>▲</span> 
+          ${this.editMode
+          ? html`
+              <button
+                @click=${() => {
+                  this.editMode = false;
+                }}
+              >
+                💾
+              </button>
+            `
+          : html`
+              <button @click=${() => (this.editMode = true)}>✎</button>
+            `}
+          <span>▼</span> 
         </div>
       </div>
     `;

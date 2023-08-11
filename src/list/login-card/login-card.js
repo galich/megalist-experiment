@@ -63,6 +63,7 @@ export default class LoginCard extends LitElement {
       if (label.includes("address")) {
         return html`<div>
           <a href=${`https://www.google.ca/maps/place/${v}`}>${v}</a>
+          
         </div>`;
       }
 
@@ -74,12 +75,23 @@ export default class LoginCard extends LitElement {
       return html`<input name="${label}" type="${type}" value=${v} />`;
     });
 
+    const valuesToEdit = value.split("\n").map((v) => {
+      return html`<textarea rows=1>${v}</textarea>`;
+    });
+
     return html`
       <div slot="row-content" class="input-display">
         <div>
           <label for="${label}">${label}</label>
         </div>
         ${values}
+      </div>
+
+      <div slot="edit-row-content" class="input-display">
+        <div>
+          <input value=${label}>
+        </div>
+        ${valuesToEdit}
       </div>
     `;
   }
