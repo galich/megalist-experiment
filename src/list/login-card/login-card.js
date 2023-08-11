@@ -12,7 +12,7 @@ const ICONS = {
 export default class LoginCard extends LitElement {
   static get properties() {
     return {
-      login: { type: Object },
+      login: { type: Array },
     };
   }
 
@@ -50,8 +50,32 @@ export default class LoginCard extends LitElement {
 
   getIconSrc(name) {
     if (name.includes("websites")) {
-      return ICONS[this.login[name]] || "../../assets/default.png";
+      return ICONS[this.login.lines[name]] || "../../assets/default.png";
     }
+  }
+
+  onMoveUp(idx) {
+    if (idx > 0) {
+      this.login.lines.splice(
+        idx - 1,
+        2,
+        this.login.lines[idx],
+        this.login.lines[idx - 1]
+      );
+    }
+    this.requestUpdate();
+  }
+
+  onMoveDown(idx) {
+    if (idx < this.login.lines.length - 1) {
+      this.login.lines.splice(
+        idx,
+        2,
+        this.login.lines[idx + 1],
+        this.login.lines[idx]
+      );
+    }
+    this.requestUpdate();
   }
 
   renderInput(label, value, type = "text") {
@@ -63,7 +87,6 @@ export default class LoginCard extends LitElement {
       if (label.includes("address")) {
         return html`<div>
           <a href=${`https://www.google.ca/maps/place/${v}`}>${v}</a>
-          
         </div>`;
       }
 
@@ -76,7 +99,9 @@ export default class LoginCard extends LitElement {
     });
 
     const valuesToEdit = value.split("\n").map((v) => {
-      return html`<textarea rows=1>${v}</textarea>`;
+      return html`<textarea placeholder="Enter your data" rows="1">
+${v}</textarea
+      >`;
     });
 
     return html`
@@ -89,7 +114,7 @@ export default class LoginCard extends LitElement {
 
       <div slot="edit-row-content" class="input-display">
         <div>
-          <input value=${label}>
+          <input placeholder="Enter label" value=${label} />
         </div>
         ${valuesToEdit}
       </div>
@@ -118,21 +143,26 @@ export default class LoginCard extends LitElement {
     return html`
       <list-card>
         <div slot="content">
-          ${Object.entries(this.login).map(([name, value]) => {
+          ${this.login.lines.map(({ label, value }, idx) => {
             let type = "text";
-            if (name.includes("password")) {
+            if (label.includes("password")) {
               type = "password";
             }
 
             // Format the credit card number value
-            if (name.includes("card-number")) {
+            if (label.includes("card-number")) {
               const result = value.match(/.{1,4}/g) || [];
               value = result.join("-");
             }
 
             return html`
-              <login-card-row .icon=${this.getIconSrc(name)}>
-                ${this.renderInput(name, value, type)}
+              <login-card-row
+                .moveUp=${idx > 0 ? () => this.onMoveUp(idx) : null}
+                .moveDown=${idx < this.login.lines.length - 1 ? () => this.onMoveDown(idx) : null}
+                .editMode=${!label && !value}
+                .icon=${this.getIconSrc(label)}
+              >
+                ${this.renderInput(label, value, type)}
               </login-card-row>
             `;
           })}

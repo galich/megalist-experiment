@@ -24,72 +24,99 @@ export class Megalist extends LitElement {
   }
 
   render() {
-    const items = [
+const items = [
+  { lines: [{ label: "", value: "" }] },
+  {
+    lines: [
+      { label: "allowed on websites", value: "https://google.com" },
+      { label: "password", value: "123456789" },
+      { label: "username", value: "joedoe" },
+    ],
+  },
+  {
+    lines: [
+      { label: "allowed on websites", value: "https://accounts.firefox.com" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
+      { label: "allowed on websites", value: "https://amazon.com" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
+      { label: "allowed on websites", value: "https://amazon.com" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
+      { label: "allowed on websites", value: "https://amazon.com" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
       {
-        "allowed on websites": "https://google.com",
-        username: "joedoe",
-        password: "123456789",
+        label: "allowed on websites",
+        value: "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
       },
+      { label: "credit-card-number", value: "378282246310005" },
+      { label: "credit-card-type", value: "visa" },
+      { label: "credit-card-expiry", value: "05/29" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
       {
-        "allowed on websites": "https://accounts.firefox.com",
-        username: "joedoe",
-        password: "123456789",
+        label: "allowed on websites",
+        value: "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
       },
+      { label: "credit-card-number", value: "5555555555554444" },
+      { label: "credit-card-type", value: "mastercard" },
+      { label: "credit-card-expiry", value: "05/29" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
       {
-        "allowed on websites": "https://amazon.com",
-        username: "joedoe",
-        password: "123456789",
+        label: "allowed on websites",
+        value: "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
       },
+      { label: "credit-card-number", value: "5610591081018250" },
+      { label: "credit-card-type", value: "american-express" },
+      { label: "credit-card-expiry", value: "05/29" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+    ],
+  },
+  {
+    lines: [
       {
-        "allowed on websites": "https://amazon.com",
-        username: "joedoe",
-        password: "123456789",
+        label: "allowed on websites",
+        value: "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
       },
-      {
-        "allowed on websites": "https://amazon.com",
-        username: "joedoe",
-        password: "123456789",
-      },
-      {
-        "allowed on websites":
-          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
-        "credit-card-number": "378282246310005",
-        "credit-card-type": "visa",
-        "credit-card-expiry": "05/29",
-        username: "joedoe",
-        password: "123456789",
-      },
-      {
-        "allowed on websites":
-          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
-        "credit-card-number": "5555555555554444",
-        "credit-card-type": "mastercard",
-        "credit-card-expiry": "05/29",
-        username: "joedoe",
-        password: "123456789",
-      },
-      {
-        "allowed on websites":
-          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
-        "credit-card-number": "5610591081018250",
-        "credit-card-type": "american-express",
-        "credit-card-expiry": "05/29",
-        username: "joedoe",
-        password: "123456789",
-      },
-      {
-        "allowed on websites":
-          "https://www.bmo.com\nhttps://www.bmoinvestorline.com",
-        "never use on websites": "https://facebook.com",
-        address: "366 Adelaide St W #500",
-        city: "Toronto",
-        province: "ON",
-        "postal code": "M5V 1R9",
-        username: "joedoe",
-        password: "123456789",
-        email: "joe@doe.com",
-      },
-    ];
+      { label: "never use on websites", value: "https://facebook.com" },
+      { label: "address", value: "366 Adelaide St W #500" },
+      { label: "city", value: "Toronto" },
+      { label: "province", value: "ON" },
+      { label: "postal code", value: "M5V 1R9" },
+      { label: "username", value: "joedoe" },
+      { label: "password", value: "123456789" },
+      { label: "email", value: "joe@doe.com" },
+    ],
+  },
+];
 
     return html`
       <div class="container">

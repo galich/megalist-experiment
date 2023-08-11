@@ -17,7 +17,8 @@ export default class LoginCardRow extends LitElement {
         margin: 8px;
       }
       .row:hover .arrows {
-        display: block;
+        display: flex;
+        flex-direction: column;
       }
 
       .row > .image-margin {
@@ -36,6 +37,18 @@ export default class LoginCardRow extends LitElement {
       }
       .arrows > span {
         cursor: pointer;
+      }
+
+      .arrows > button {
+        display: relative;
+        margin: -2px;
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
       }
     `;
   }
@@ -60,10 +73,11 @@ export default class LoginCardRow extends LitElement {
               
             `}
         <div class="arrows">
-          <span>▲</span> 
+          ${this.moveUp ? html`<button title="Move line up" @click=${this.moveUp}>▲</button>` : null}
           ${this.editMode
           ? html`
               <button
+                title="Save"
                 @click=${() => {
                   this.editMode = false;
                 }}
@@ -72,9 +86,9 @@ export default class LoginCardRow extends LitElement {
               </button>
             `
           : html`
-              <button @click=${() => (this.editMode = true)}>✎</button>
+              <button title="Edit" @click=${() => (this.editMode = true)}>✎</button>
             `}
-          <span>▼</span> 
+         ${this.moveDown ? html`<button title="Move line down" @click=${this.moveDown}>▼</button>` : null}
         </div>
       </div>
     `;
