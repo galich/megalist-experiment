@@ -4,7 +4,9 @@
   "description": "Renders a mix of list items",
   "scripts": {
     "start": "web-dev-server --node-resolve --open --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist/",
+    "copy": "ncp assets/ dist/assets/",
+    "build": "npm run clean && parcel build index.html && npm run copy"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,9 @@
     "lit": "^2.8.0"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.3.0"
+    "@web/dev-server": "^0.3.0",
+    "ncp": "^2.0.0",
+    "parcel": "^2.9.3",
+    "rimraf": "^5.0.1"
   }
 }
