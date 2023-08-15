@@ -4,9 +4,9 @@
   "description": "Renders a mix of list items",
   "scripts": {
     "start": "web-dev-server --node-resolve --open --watch",
-    "clean": "rimraf dist/",
-    "copy": "ncp assets/ dist/assets/",
-    "build": "npm run clean && parcel build index.html && npm run copy"
+    "clean": "rimraf docs/",
+    "copy": "ncp assets/ docs/assets/",
+    "build": "npm run clean && parcel build index.html --dist-dir docs && npm run copy"
   },
   "repository": {
     "type": "git",
