@@ -4,9 +4,10 @@ import "./login-card-row";
 import "../list-card";
 
 const ICONS = {
-  "https://google.com": "../../assets/google.png",
-  "https://amazon.com": "../../assets/amazon.png",
-  "https://facebook.com": "../../assets/facebook.png",
+  "https://google.com": "./assets/google.png",
+  "https://amazon.com": "./assets/amazon.png",
+  "https://facebook.com": "./assets/facebook.png",
+  default: "./assets/default.png",
 };
 
 export default class LoginCard extends LitElement {
@@ -48,9 +49,9 @@ export default class LoginCard extends LitElement {
     `;
   }
 
-  getIconSrc(name) {
+  getIconSrc(name, value) {
     if (name.includes("websites")) {
-      return ICONS[this.login.lines[name]] || "../../assets/default.png";
+      return ICONS[value] ?? ICONS["default"];
     }
   }
 
@@ -114,7 +115,11 @@ ${v}</textarea
 
       <div slot="edit-row-content" class="input-display">
         <div>
-          <input list="label-suggestions" placeholder="Enter label" value=${label} />
+          <input
+            list="label-suggestions"
+            placeholder="Enter label"
+            value=${label}
+          />
           <datalist id="label-suggestions">
             <option>username</option>
             <option>password</option>
@@ -170,9 +175,11 @@ ${v}</textarea
             return html`
               <login-card-row
                 .moveUp=${idx > 0 ? () => this.onMoveUp(idx) : null}
-                .moveDown=${idx < this.login.lines.length - 1 ? () => this.onMoveDown(idx) : null}
+                .moveDown=${idx < this.login.lines.length - 1
+                  ? () => this.onMoveDown(idx)
+                  : null}
                 .editMode=${!label && !value}
-                .icon=${this.getIconSrc(label)}
+                .icon=${this.getIconSrc(label, value)}
               >
                 ${this.renderInput(label, value, type)}
               </login-card-row>

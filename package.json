@@ -6,7 +6,7 @@
     "start": "web-dev-server --node-resolve --open --watch",
     "clean": "rimraf docs/",
     "copy": "ncp assets/ docs/assets/",
-    "build": "npm run clean && parcel build index.html --dist-dir docs && npm run copy"
+    "build": "npm run clean && parcel build index.html --dist-dir docs --public-url ./ && npm run copy"
   },
   "repository": {
     "type": "git",
