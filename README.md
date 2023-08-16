@@ -1,3 +1,6 @@
+# Preview mega-list
+Navigate to: https://galich.github.io/megalist-experiment/
+
 # Getting started
 
 1. Clone repository `git clone https://github.com/galich/megalist-experiment.git`
