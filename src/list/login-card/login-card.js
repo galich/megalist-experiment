@@ -13,7 +13,7 @@ const ICONS = {
 export default class LoginCard extends LitElement {
   static get properties() {
     return {
-      login: { type: Array },
+      login: { type: Array }, // Should this be an object?
     };
   }
 
@@ -76,6 +76,13 @@ export default class LoginCard extends LitElement {
         this.login.lines[idx]
       );
     }
+    this.requestUpdate();
+  }
+
+  onsaveInfo(label, value, idx){
+    this.editMode = false;
+    this.login.lines[idx].label = label;
+    this.login.lines[idx].value = value;
     this.requestUpdate();
   }
 
@@ -178,6 +185,7 @@ ${v}</textarea
                 .moveDown=${idx < this.login.lines.length - 1
                   ? () => this.onMoveDown(idx)
                   : null}
+                .saveInfo=${!label && !value ? null : () => this.onsaveInfo(label, value, idx)}
                 .editMode=${!label && !value}
                 .icon=${this.getIconSrc(label, value)}
               >

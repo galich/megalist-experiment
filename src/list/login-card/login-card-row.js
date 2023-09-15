@@ -78,9 +78,7 @@ export default class LoginCardRow extends LitElement {
           ? html`
               <button
                 title="Save"
-                @click=${() => {
-                  this.editMode = false;
-                }}
+                @click=${() => (this.saveInfo = true)}
               >
                 💾
               </button>
