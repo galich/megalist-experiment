@@ -1,1 +1,237 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><meta name="Description" content="Put your description here."><base href="./"><script type="module" src="index.c112828c.js"></script></head><style>body{box-sizing:border-box;width:100vw;min-height:100vh;margin:0;padding:20px}</style><body> <mega-list></mega-list> <br><br><br><br><br> </body></html>
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <style>
+        .tv {
+            margin: 20px;
+            padding: 20px;
+
+            background-color: gainsboro;
+            border-radius: 4px;
+
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: stretch;
+            justify-items: stretch;
+        }
+
+        .component {
+            margin: 40px;
+            padding: 20px;
+            background: slategray;
+            border: 1px solid slateblue;
+            border-radius: 4px;
+            min-height: 800px;
+            width: 500px;
+        }
+
+        .component h1 {
+            border-bottom: 1px solid whitesmoke;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            color: whitesmoke;
+            text-align: center;
+        }
+
+        .callout {
+            position: absolute;
+            border: 1px solid dimgray;
+            border-radius: 4px;
+            background-color: whitesmoke;
+            padding: 20px;
+            max-width: 120px;
+            opacity: 0.8;
+        }
+
+        .dataSource {
+            margin: 40px;
+            padding: 20px;
+            border: 1px solid whitesmoke;
+            color: whitesmoke;
+        }
+
+        #lines {
+            visibility: collapse;
+            margin-top: 100px;
+        }
+
+        .line {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid whitesmoke;
+            color: whitesmoke;
+        }
+
+        label {
+            font-size: larger;
+        }
+
+        #search {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #log {
+            margin: 20px;
+            padding: 20px;
+            font-family: monospace;
+        }
+    </style>
+
+    <header>
+        <h1>How Megalist works</h1>
+    </header>
+
+    <main>
+        <label>
+            <input id="pause" type="checkbox">
+            PAUSE
+        </label>
+        <div class="tv">
+            <div id="view" class="component">
+                <h1>View</h1>
+                <input id="search" type="search" placeholder="search">
+                <div id="lines">
+                    <div class="line">5</div>
+                    <div class="line">7</div>
+                    <div class="line">9</div>
+                </div>
+            </div>
+            <div id="viewModel" class="component">
+                <h1>View Model</h1>
+            </div>
+            <div id="aggregator" class="component">
+                <h1>Aggregator</h1>
+            </div>
+            <div id="dataSource" class="component">
+                <h1>Data Sources</h1>
+                <div class="dataSource">IndexedDB</div>
+                <div class="dataSource">Logins</div>
+                <div class="dataSource">Credit Cards</div>
+                <div class="dataSource">Chrome</div>
+            </div>
+        </div>
+
+        <div id="log">
+        </div>
+    </main>
+
+    <footer>
+        Because we don't like UML. Sorry, eh?
+    </footer>
+
+    <script type="module">
+        let view = document.querySelector("#view h1");
+        let viewModel = document.querySelector("#viewModel h1");
+        let aggregator = document.querySelector("#aggregator h1");
+        let dataSource = document.querySelector("#dataSource h1");
+        let lines = document.querySelector("#lines");
+        let line = document.querySelectorAll(".line");
+        let search = document.querySelector("#search");
+        let dataSources = Array.from(document.querySelectorAll(".dataSource"));
+        let pause = document.querySelector("#pause");
+        let animations = new Set();
+        pause.addEventListener("change", () => {
+            if (pause.checked) {
+                animations.forEach(a => a.pause());
+            } else {
+                animations.forEach(a => a.play());
+            }
+        });
+
+        search.value = "";
+
+        async function animate(from, to, message) {
+            if (Array.isArray(to)) {
+                await Promise.all(to.map((x, i) => animate(from, x, message)));
+                return;
+            }
+
+            let callout = document.createElement("div");
+            callout.className = "callout";
+            callout.innerText = message;
+
+            document.body.appendChild(callout);
+
+            let logLine = document.createElement("div");
+            logLine.innerText = message;
+            log.appendChild(logLine);
+
+            let fromRect = from.getBoundingClientRect();
+            let toRect = to.getBoundingClientRect();
+            let animation = callout.animate(
+                {
+                    left: [
+                        (fromRect.left + fromRect.width / 2) + "px",
+                        (toRect.left + toRect.width / 2) + "px"
+                    ],
+                    top: [
+                        (fromRect.top + fromRect.height / 2 + document.defaultView.getComputedStyle(from).marginBottom.slice(0, -2)) + "px",
+                        (toRect.top + fromRect.height / 2 + document.defaultView.getComputedStyle(to).marginBottom.slice(0, -2)) + "px"
+                    ],
+                },
+                {
+                    delay: 500,
+                    duration: 1500,
+                    easing: "ease-in-out",
+                    endDelay: 500,
+                    fill: "both",
+                });
+            animations.add(animation);
+            await animation.finished;
+            animations.delete(animation);
+
+            callout.remove();
+        }
+
+        await animate(viewModel, view, "update list to line ids\n[5, 7, 9]");
+
+        await animate(view, view, "show box of 3 lines");
+        lines.style.visibility = "visible";
+        await animate(line[0], viewModel, "request line data (5)");
+        await animate(viewModel, aggregator, "request line data (5)");
+        await animate(aggregator, dataSources, "request line data (5)");
+
+        await animate(line[1], viewModel, "request line data (7)");
+        await animate(viewModel, aggregator, "request line data (7)");
+        await animate(aggregator, dataSources, "request line data (7)");
+
+        await animate(dataSources[0], aggregator, "data for line 7");
+        await animate(aggregator, viewModel, "data for line 7");
+        await animate(viewModel, line[1], "update line 7 to { label: 'username', value: 'freddy'})");
+        line[1].innerText = "username: freddy";
+
+        await animate(line[2], viewModel, "request line data (9)");
+        await animate(viewModel, aggregator, "request line data (9)");
+        await animate(aggregator, dataSources, "request line data (9)");
+
+        await animate(dataSources[3], aggregator, "data for line 9");
+        await animate(aggregator, viewModel, "data for line 9");
+        await animate(viewModel, line[2], "update line 9 to { label: 'password', value: '12345'})");
+        line[2].innerText = "password: 12345";
+
+        await animate(dataSources[1], aggregator, "data for line 5");
+        await animate(aggregator, viewModel, "data for line 5");
+        await animate(viewModel, line[0], "update line 5 to { label: 'website', value: 'firefox.com'})");
+        line[0].innerText = "website: firefox.com";
+
+        await animate(search, search, "user types `f`");
+        search.value = "f";
+        await animate(search, viewModel, "set search text to `f`");
+        await animate(viewModel, view, "update list to line ids\n[5, 7]");
+        line[2].style.visibility = "collapse";
+
+        await animate(search, search, "user types `i`");
+        search.value = "fi";
+        await animate(search, viewModel, "set search text to `fi`");
+        await animate(viewModel, view, "update list to line ids\n[5]");
+        line[1].style.visibility = "collapse";
+
+    </script>
+
+</body>
+
+</html>
